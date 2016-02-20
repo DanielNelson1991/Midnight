@@ -32,8 +32,6 @@ public class CharacterScript : MonoBehaviour {
 
 	public GUISkin myskin;
 
-	public string[] script;
-
 	/*
 	 * 
 	 * Summary: Awake Function
