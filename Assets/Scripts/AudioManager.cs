@@ -27,24 +27,15 @@ public class AudioManager : MonoBehaviour {
 	 * */
 	void PlayBackgroundAudio()
 	{
-		Debug.Log("Message from AudioManager: Lightning Function called");
-		// Create a random range when this function is called
-		float randomRange = Random.Range(0, 100);
+        Debug.Log("Message from " + this.GetType().Name + " Lightning Function called");
 
 		// 30% change of playing thunder
-		if(randomRange < 30)
+		if(Random.value <= 0.3)
 		{
-			moonLight.enabled = true;
+			//moonLight.enabled = true;
 			GetComponent<AudioSource>().outputAudioMixerGroup = audioMixerGroup;
 			GetComponent<AudioSource>().PlayOneShot(distantThunder);
-			StartCoroutine(TurnOffLight());
 		}  
 
-	}
-
-	IEnumerator TurnOffLight()
-	{
-		yield return new WaitForSeconds(0.5f);
-		moonLight.enabled = false;
 	}
 }

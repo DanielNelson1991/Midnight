@@ -7,10 +7,8 @@ function Awake () {
 
 // Update is called once per frame
 function Update () {
-	// Get the input vector from keyboard or analog stick
+	// Get the input vector from kayboard or analog stick
 	var directionVector = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-	
-
 	
 	if (directionVector != Vector3.zero) {
 		// Get the length of the directon vector and then normalize it
@@ -27,14 +25,6 @@ function Update () {
 		
 		// Multiply the normalized direction vector by the modified length
 		directionVector = directionVector * directionLength;
-		
-		if(Input.GetKey(KeyCode.LeftShift))
-		{
-			motor.movement.maxForwardSpeed = 6;
-		}
-		else {
-			motor.movement.maxForwardSpeed = 2.6f;
-		}
 	}
 	
 	// Apply the direction to the CharacterMotor

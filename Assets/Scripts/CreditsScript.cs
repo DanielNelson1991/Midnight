@@ -1,5 +1,11 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
+using System;
+using System.Net;
+using System.Net.Mail;
+using System.Net.Security;
+using System.Security.Cryptography.X509Certificates;
 
 public class CreditsScript : MonoBehaviour {
 
@@ -16,8 +22,8 @@ public class CreditsScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        rectPosition = new Rect(Screen.width / 2 - 250, Screen.height - (moveSpeed * Time.time), 500, 550);
-        if(rectPosition.y <= -550)
+        rectPosition = new Rect(Screen.width / 2 - 250, Screen.height - (moveSpeed * Time.time), 500, 800);
+        if(rectPosition.y <= -800)
         {
             creditsFinished = true;
         }
@@ -33,10 +39,16 @@ public class CreditsScript : MonoBehaviour {
         GUILayout.Label("Daniel Nelson", guiStyle);
         GUILayout.Space(nameOffset);
         GUILayout.Label("Tareq Ahmed", guiStyle);
+        GUILayout.Space(heagingOffset);
+        GUILayout.Label("<color=yellow>3D Artist</color>", guiStyle);
+        GUILayout.Label("__________________", guiStyle);
         GUILayout.Space(nameOffset);
-        GUILayout.Label("Grant Stevens - Wade", guiStyle);
+        GUILayout.Label("Niall Doherty", guiStyle);
+        GUILayout.Space(heagingOffset);
+        GUILayout.Label("<color=yellow>Audio Artist</color>", guiStyle);
+        GUILayout.Label("__________________", guiStyle);
         GUILayout.Space(nameOffset);
-        GUILayout.Label("Kyle Field", guiStyle);
+        GUILayout.Label("Thomas Engebretsen", guiStyle);
         GUILayout.Space(heagingOffset);
         GUILayout.Label("<color=yellow>3D Model Credits</color>", guiStyle);
         GUILayout.Label("__________________", guiStyle);
@@ -66,7 +78,31 @@ public class CreditsScript : MonoBehaviour {
             {
                 Application.OpenURL("https://www.facebook.com/Midnight-1501059023532088/");
             }
+            //if(GUILayout.Button("Send Developer Feedback"))
+            //{
+            //    SendEmail();
+            //}
             GUILayout.EndArea();
         }
     }
+
+    //void SendEmail()
+    //{
+    //    MailMessage mail = new MailMessage();
+
+    //    mail.From = new MailAddress("test@gmail.com");
+    //    mail.To.Add("1991.danielnelson@gmail.com");
+    //    mail.Subject = "Test Mail";
+    //    mail.Body = "This is for testing SMTP mail from GMAIL";
+
+    //    SmtpClient smtpServer = new SmtpClient("smtp.gmail.com");
+    //    smtpServer.Port = 587;
+    //    smtpServer.Credentials = new System.Net.NetworkCredential("1991.danielnelson@gmail.com", "koudelka3214") as ICredentialsByHost;
+    //    smtpServer.EnableSsl = true;
+    //    ServicePointManager.ServerCertificateValidationCallback =
+    //        delegate (object s, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors)
+    //        { return true; };
+    //    smtpServer.Send(mail);
+    //    Debug.Log("success");
+    //}
 }

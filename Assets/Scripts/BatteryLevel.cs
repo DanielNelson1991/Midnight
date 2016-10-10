@@ -8,17 +8,13 @@ public class BatteryLevel : MonoBehaviour {
 	public Light _torchTwo;
 	public static bool _torchsOn;
 
-	[Tooltip("Battery level at 100%")]
-	public Sprite _oneHundredPercentIcon;
+    public Sprite[] _flashLightSprite;
 
-	[Tooltip("Battery level Icon at 75%")]
-	public Sprite _seventyFivePercentIcon;
+    [Tooltip("The speed of which the flashlight decreases")]
+    public float _flashLightSpeedDecrease = 0.0f;
 
-	[Tooltip("Batter level Icon at 50%")]
-	public Sprite _fiftyPercentIcon;
-
-	[Tooltip("Battery level Icon at 25%")]
-	public Sprite _twentyFivePercentIcon;
+    [Tooltip("The amount decreased per frame")]
+    public float _flashLightDecreaseAmount = 0.0f;
 
 	// Use this for initialization
 	void Start () {
@@ -30,18 +26,18 @@ public class BatteryLevel : MonoBehaviour {
 
 		// Only if the torch is on, deplete battery
 		if(_torchsOn) {
-			_batteryLevel = _batteryLevel - 1f * 2 * Time.deltaTime;
+			_batteryLevel = _batteryLevel - _flashLightDecreaseAmount * _flashLightSpeedDecrease * Time.deltaTime;
 		}
 
 		// Block of If's to determine battery level and switch sprite accordingly
 		if(_batteryLevel <= 100) {
-			GetComponent<Image>().sprite = _oneHundredPercentIcon;
+			GetComponent<Image>().sprite = _flashLightSprite[0];
 		} if(_batteryLevel <= 75) {
-			GetComponent<Image>().sprite = _seventyFivePercentIcon;
+			GetComponent<Image>().sprite = _flashLightSprite[1];
 		} if (_batteryLevel <= 50) {
-			GetComponent<Image>().sprite = _fiftyPercentIcon;
+			GetComponent<Image>().sprite = _flashLightSprite[2];
 		} if(_batteryLevel <= 25) {
-			GetComponent<Image>().sprite = _twentyFivePercentIcon;
+			GetComponent<Image>().sprite = _flashLightSprite[3];
 		} if(_batteryLevel <= 0) {
 			GetComponent<Image>().enabled = false;
 			_batteryLevel = 0;
@@ -50,4 +46,17 @@ public class BatteryLevel : MonoBehaviour {
 		}
 
 	}
+
+    /// <summary>
+    /// Increase the flashlight amount
+    /// </summary>
+    /// <param name="amount"></param>
+    public void IncreaseFlashlightBattery(float amount)
+    {
+        // If battery level is below 100, we can add to it.
+        if(_batteryLevel < 100)
+        {
+            _batteryLevel += amount;
+        }
+    }
 }

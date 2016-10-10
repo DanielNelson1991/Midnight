@@ -2,8 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using TalkbackHelper;
 public class RaycastHandler : MonoBehaviour {
-					
+
+	#pragma warning disable 0414
 	Camera cam;								// Make a reference to the camera object
 	CharacterScript player;					// Make a reference to the player
 
@@ -12,11 +14,13 @@ public class RaycastHandler : MonoBehaviour {
 	public Texture2D normalCusor;			// Variable for the Normal Cursor (DOT)
 	public Texture2D doorsCursor;			// Variable for the Door Cursor (HAND)
 	public Texture2D interactiveCursor;		// Variable for the Interactive Object (QUESTION MARK)
+    public Texture2D lookingAtObject; 
 
 	public Text descriptiveTextCanvas;
 
 	public CursorMode cursorMode;			// Make a reference the current cursor mode
 
+	#pragma warning disable 0414
 	bool lookingAtPickupObject;					// Is the player looking at an interactive object? Used for GUI
 	bool lookingAtInteractiveObject;
 	string objectName;						// What is the object name?
@@ -24,11 +28,15 @@ public class RaycastHandler : MonoBehaviour {
 	[Tooltip("What layers should the raycast ignore?")]
 	public LayerMask raycastLayerMask;		// What layers should the raycast ignore?
 
-	private Vector2 hotSpot = Vector2.zero;	// Define the hotspot of the cursor. 
-
-	Inventory inventory;					// Make a reference to Inventory
 	HorrorTrigger horror;					// Make a reference to the horror trigger script
 
+	ControlsAssist conntrolsAssist;
+    TaskManager taskObjective;
+    CharacterScript character;
+
+    bool isPickupMove = false;
+
+    bool b_oneTimeCursorCall = false;
 
 	/*
 	 * 
@@ -54,14 +62,12 @@ public class RaycastHandler : MonoBehaviour {
 	 * */
 	void Start () {
 
-
-		// Define the X and Y co-ordinates of the cursor HotSpot
-		hotSpot.x = 0f;
-		hotSpot.y = 0f;
-
 		// Setup the normal cursor at the beginning of the game
-		Cursor.SetCursor(normalCusor, hotSpot, CursorMode.ForceSoftware);
-	}
+		ChangeCursorMode("Normal", new Vector2(0, 0));
+        //Cursor.lockState = CursorLockMode.Locked;
+
+
+    }
 	
 	
 	/*
@@ -73,26 +79,15 @@ public class RaycastHandler : MonoBehaviour {
 	 * */
 	void Update () {
 
-		// Lock the cursor in the middle of the screen
-        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = true;
 
-		// Keep the cursor visible
-		Cursor.visible = true;
-
-		// Create a reference to the raycast hit class
-		RaycastHit hit;
-
-		// Define a Vector3 transform position for the direction of raycast
-		Vector3 fwd = transform.TransformDirection(Vector3.forward);
+        // Create a reference to the raycast hit class
+        RaycastHit hit;
 
 		// (Testing purposes) Show the raycast within scene view
 		Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * 3, Color.green);
 
-        // Tman code
-		lookingAtPickupObject = false;
-		descriptiveTextCanvas.enabled = false;
-        objectName = "";
-        Cursor.SetCursor(normalCusor, hotSpot, cursorMode);
+        lookingAtPickupObject = false;
 
 		if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, 3, raycastLayerMask))
 		{
@@ -103,95 +98,185 @@ public class RaycastHandler : MonoBehaviour {
 			{
 				case "PickupObject":
 					lookingAtPickupObject = true;
-					objectName = hit.transform.gameObject.name;
-					
-					if(hit.transform.gameObject.tag == "PickupObject" && objectName == "Battery")
-					{
-						BatteryLevel._batteryLevel += 50;
-					}
-				Cursor.SetCursor(interactiveCursor, hotSpot, cursorMode);
+					//objectName = hit.transform.gameObject.name;
+                    if (!b_oneTimeCursorCall)
+                    {
+                        //ChangeCursorMode("QuestionMark", new Vector2(normalCusor.width / 2, normalCusor.height / 2));
+                        b_oneTimeCursorCall = true;
+                    }
 				break;
 
-
 				case "InteractiveObject":
-					descriptiveTextCanvas.enabled = true;
-					descriptiveTextCanvas.text = DescriptiveObject.ReturnObjectDescription();
+                    descriptiveTextCanvas.enabled = true;
+                    if (hit.transform.gameObject.GetComponent<DescriptiveObject>() == null)
+				    {
+					    descriptiveTextCanvas.text = "";
+				    } else
+                    {
+                        descriptiveTextCanvas.text = DescriptiveObject.ReturnObjectDescription();
+                    }					
 				break;
 
 				case "Door":
-					Cursor.SetCursor(doorsCursor, hotSpot, cursorMode);
-				break;
+                    if(!b_oneTimeCursorCall)
+                    {
+                        //ChangeCursorMode("Hand", new Vector2(normalCusor.width / 2, normalCusor.height / 2));
+                        b_oneTimeCursorCall = true;
+                    }   
+                break;
 
 				case "HorrorDoor":
-					hit.transform.gameObject.GetComponent<HorrorTrigger>().CallHorrorEvent();
 					hit.transform.gameObject.tag = "Untagged";
 				break;
 
+                case "Untagged":
+                    Debug.Log("Message: Default look at object called");
+                    if (!b_oneTimeCursorCall)
+                    {
+                        //ChangeCursorMode("Normal", new Vector2(normalCusor.width / 2, normalCusor.height / 2));
+                        b_oneTimeCursorCall = true;
+                    }
+                break;
+
 				default:
-					// Do nothing (May be used later)
-				break;
+                    
+                break;
 			}
+
+
+
+            if(hit.transform.gameObject.GetComponent<HorrorTrigger>() == true)
+            {
+
+                HorrorTrigger[] ht = hit.transform.gameObject.GetComponents<HorrorTrigger>();
+
+                for(int i = 0; i < ht.Length; i++)
+                {
+                    if (ht[i].b_activated == false)
+                    {
+
+                        if (ht[i].m_horrorType == HorrorTrigger.horrorTypes.DoorOpen)
+                        {
+                            StartCoroutine(ht[i].CreekOpenDoor());
+                            ht[i].b_activated = true;
+                        }
+
+                        if (ht[i].m_horrorType == HorrorTrigger.horrorTypes.Audio)
+                        {
+                            StartCoroutine(ht[i].CallAudioHorrorEvent());
+                            ht[i].b_activated = true;
+                        }
+
+                    }
+
+                    ht[i].b_activated = true;
+                    Debug.Log(ht[i].gameObject.name + " : " + ht[i].b_activated);
+                }
+
+
+
+            }
 
 			//Determine what happens if the player clicks
 			if(Input.GetMouseButtonDown(0))
 			{
-				if(hit.transform.gameObject.tag == "PickupObject")
-				{
-					player.InteractWithObject(hit.transform.gameObject.name);
-					Destroy(hit.transform.gameObject);
+
+                // Animation cases
+                if(hit.transform.gameObject.tag == "AnimatedDraw")
+                {
+                    hit.transform.gameObject.GetComponentInParent<Animator>().enabled = true;
+                    switch (hit.transform.parent.tag)
+                    {
+                        case "AnimatedObject":
+                            InteractWithAnimatedObject("DrawOpen", hit.transform.gameObject.GetComponentInParent<Animator>());
+                            break;
+                    }
                 }
 
-				if(hit.transform.gameObject.tag == "AnimatedDraw")
+                // Pickup object cases
+                if (hit.transform.gameObject.tag == "PickupObject")
 				{
-					Animator anim;
-					anim = hit.transform.gameObject.GetComponentInParent<Animator>();
-					anim.enabled = true;
-					if(anim.GetBool("DrawOpen") == true)
-					{
-						anim.SetBool("DrawOpen", false);
-					} else if(anim.GetBool("DrawOpen") == false)
-					{
-						anim.SetBool("DrawOpen", true);
-					}
-					
-				}
+					Debug.Log("Debug Message: PickupObject Tag from " + this.GetType().Name + " was called.");
+
+                    conntrolsAssist = new ControlsAssist();
+                    
+					taskObjective = GetComponentInParent<TaskManager>();
+                    
+					conntrolsAssist.ItemLookAtMessage(hit.transform.gameObject.name);
+                    
+					taskObjective.SetCompletedTask(hit.transform.gameObject.GetComponent<TaskObjective>().TaskCompletedID);
+                    
+					character = GetComponentInParent<CharacterScript>();
+                    
+					character.inventoryItems.Add(hit.transform.gameObject);
+                    
+					hit.transform.gameObject.SetActive(false);
+                }
 
 				if(hit.transform.gameObject.tag == "Door")
 				{
 					player.InteractWithDoor(hit.transform.gameObject.GetComponent<DoorScript>());
 				}
 
-				if(hit.transform.gameObject.tag == "AnimatedObject")
-				{
-					player.InteractWithAnimatedObject(hit.transform.gameObject.name, hit.transform.gameObject.GetComponent<Animator>());
-				}
 
-				if(hit.transform.gameObject.tag == "Light")
-				{
-					Debug.Log("Looking at Light Switch");
-					hit.transform.gameObject.GetComponent<InteractableObject>().lightSource.enabled = true;
-				}
 			}
-		}
+        }
 	}
 
 
-	/*
-	 * 
-	 * Summary: OnGUI
-	 * 
-	 * */
-	void OnGUI()
+	/// <summary>
+	/// Changes the cursor mode.
+	/// </summary>
+	/// <param name="name">Name.</param>
+	void ChangeCursorMode(string name, Vector2 hotSpot)
 	{
-		GUI.skin = skin;
-			if(lookingAtPickupObject)
-			{
-				GUI.Label(new Rect(Screen.width / 2 - 95, Screen.height / 2 + 42.5f, 0, 0), objectName, GUI.skin.GetStyle("lookAt"));
-			}
-			if(lookingAtInteractiveObject)
-			{
-			//GUI.Label(new Rect(Screen.width / 2 - DescriptiveObject.ReturnObjectDescription().Length / 2, Screen.height + 100, 400, 400), DescriptiveObject.ReturnObjectDescription());
-			}
+        Debug.Log("Message: Change cursor mode active. - FUNCTION CALL");
+		switch (name)
+		{
+			case "Normal":
+				Cursor.SetCursor(normalCusor, hotSpot, CursorMode.ForceSoftware);
+			break;
+
+			case "Hand":
+				Cursor.SetCursor(doorsCursor, hotSpot, CursorMode.ForceSoftware);
+			break;
+
+			case "QuestionMark":
+				Cursor.SetCursor(interactiveCursor, hotSpot, CursorMode.ForceSoftware);
+			break;
+
+			default:
+				Cursor.SetCursor(normalCusor, hotSpot, CursorMode.ForceSoftware);
+			break;
+		}
+        b_oneTimeCursorCall = false;
 	}
+
+   
+    /// <summary>
+    /// Woohoo! Shorter code! Instead of using an if after if for each object. In this function, 
+    /// we will react to each object that has a tag of "AnimatedObject" and we also grab the current
+    /// animator attatched to the object we are looking at. We set up a temporary bool that handles the on and off state. 
+    /// 
+    /// </summary>
+    /// <param name="objectBoolsName"></param>
+    /// <param name="objectAnimator"></param>
+    void InteractWithAnimatedObject(string objectBoolsName, Animator objectAnimator)
+    {
+        bool objectBoolValue;
+
+            objectBoolValue = objectAnimator.GetBool(objectBoolsName);
+            if (objectAnimator == null)
+            {
+                Debug.Log("Error: " + objectAnimator.transform.gameObject.name + " is missing an animator component");
+            }
+            else
+            {
+
+                objectBoolValue = !objectBoolValue;
+                objectAnimator.SetBool(objectBoolsName, objectBoolValue);
+            }
+    }
+
 
 }

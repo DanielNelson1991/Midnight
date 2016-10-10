@@ -9,14 +9,14 @@ public class FlickeringLight : MonoBehaviour {
 	public bool triggerBlowingLightbulb;
 	public AudioClip bulbExplodeAudioClip;
 	public AudioMixerGroup audioMixerGroup;
-	private Light light;
+	private Light light = new Light();
 
 	AudioSource audioSource;
 
 	// Use this for initialization
 	void Start () {
 		InvokeRepeating("FlickerLight", 0, 0.5f);
-		light = GetComponent<Light>();
+        light = gameObject.GetComponent<Light>();
 		if(triggerBlowingLightbulb)
 		{
 			GetComponent<BoxCollider>().enabled = true;
@@ -27,8 +27,6 @@ public class FlickeringLight : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
-
 
 	}
 
