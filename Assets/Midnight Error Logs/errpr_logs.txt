@@ -1,0 +1,53 @@
+Midnight Error Logs
+
+[10/25/2016 10:27:09 PM] Warning Occured: 222
+
+[10/25/2016 10:27:10 PM] Warning Occured: WARNING
+
+[10/25/2016 10:27:12 PM] Warning Occured: WARNING
+
+[10/25/2016 10:27:13 PM] Warning Occured: WARNING
+
+[10/25/2016 10:27:14 PM] Error Occured: ERROR 
+
+[10/27/2016 7:38:10 PM] Warning Occured: 222
+
+[11/3/2016 7:55:15 PM] Warning Occured: 222
+
+[11/3/2016 7:55:17 PM] Warning Occured: 222
+
+[11/4/2016 9:16:39 PM] Error Occured: ERROR 
+
+[12/1/2016 9:59:26 PM] Error Occured: ERROR 
+
+[12/1/2016 10:02:26 PM] Warning Occured: There are inconsistent line endings in the 'Assets/SocialMediaHandler.cs' script. Some are Mac OS X (UNIX) and some are Windows.
+This might lead to incorrect line numbers in stacktraces and compiler errors. Many text editors can fix this using Convert Line Endings menu commands.
+
+[12/1/2016 10:02:28 PM] Warning Occured: Assets/Scripts/FlickeringLight.cs(12,23): warning CS0108: `FlickeringLight.light' hides inherited member `UnityEngine.Component.light'. Use the new keyword if hiding was intended
+
+[12/1/2016 10:02:28 PM] Warning Occured: Assets/ErrorHandler.cs(18,16): warning CS0219: The variable `stack' is assigned but its value is never used
+
+[12/1/2016 10:02:28 PM] Warning Occured: Assets/ErrorHandler.cs(17,16): warning CS0219: The variable `output' is assigned but its value is never used
+
+[12/1/2016 10:02:28 PM] Warning Occured: Assets/Examples/Scripts/ConsoleBase.cs(230,25): warning CS0618: `UnityEngine.Application.LoadLevel(string)' is obsolete: `Use SceneManager.LoadScene'
+
+[12/1/2016 10:02:28 PM] Warning Occured: Assets/Examples/Scripts/ConsoleBase.cs(237,29): warning CS0618: `UnityEngine.Application.LoadLevel(string)' is obsolete: `Use SceneManager.LoadScene'
+
+[12/1/2016 10:02:28 PM] Warning Occured: Assets/Scripts/AudioManager.cs(33,23): warning CS0219: The variable `tempValue' is assigned but its value is never used
+
+[12/1/2016 10:02:40 PM] Warning Occured: 222
+
+[12/1/2016 10:02:43 PM] Warning Occured: 222
+
+[12/1/2016 10:05:21 PM] Error Occured: Scene 'LoadingScene' (-1) couldn't be loaded because it has not been added to the build settings or the AssetBundle has not been loaded.
+To add a scene to the build settings use the menu File->Build Settings...
+
+[12/22/2016 9:11:32 PM] Warning Occured: Assets/ErrorHandler.cs(18,16): warning CS0219: The variable `stack' is assigned but its value is never used
+
+[12/22/2016 9:11:32 PM] Warning Occured: Assets/ErrorHandler.cs(17,16): warning CS0219: The variable `output' is assigned but its value is never used
+
+[12/22/2016 9:11:32 PM] Warning Occured: Assets/Scripts/MainMenu.cs(14,16): warning CS0649: Field `MainMenu.optionsMenu' is never assigned to, and will always have its default value `null'
+
+[12/22/2016 9:11:32 PM] Warning Occured: Assets/Scripts/MainMenu.cs(15,16): warning CS0649: Field `MainMenu.mainMenu' is never assigned to, and will always have its default value `null'
+
+[12/22/2016 9:11:32 PM] Warning Occured: Assets/Scripts/Webcam.cs(6,17): warning CS0414: The private field `Webcam.enableWebcam' is assigned but its value is never used

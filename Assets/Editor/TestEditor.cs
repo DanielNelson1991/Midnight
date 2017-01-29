@@ -142,7 +142,7 @@ public class TestEditor : Editor
 		// If horror type is Push Object
 		if(myTarget.m_horrorType == HorrorTrigger.horrorTypes.PushObject)
 		{
-			
+			myTarget.pushedObjects = EditorGUILayout.ObjectField(myTarget.pushedObjects, typeof(GameObject), true) as GameObject;
 		}
 
 

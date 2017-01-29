@@ -38,6 +38,8 @@ public class RaycastHandler : MonoBehaviour {
 
     bool b_oneTimeCursorCall = false;
 
+    public string[] something;
+
 	/*
 	 * 
 	 * Summary: Awake Function
@@ -84,15 +86,10 @@ public class RaycastHandler : MonoBehaviour {
         // Create a reference to the raycast hit class
         RaycastHit hit;
 
-		// (Testing purposes) Show the raycast within scene view
-		Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * 3, Color.green);
-
         lookingAtPickupObject = false;
 
 		if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, 3, raycastLayerMask))
 		{
-			Debug.Log(hit.transform.gameObject.name);
-
 			// Switch case to determine the object we are currently looking at
 			switch(hit.transform.gameObject.tag)
 			{
@@ -130,7 +127,6 @@ public class RaycastHandler : MonoBehaviour {
 				break;
 
                 case "Untagged":
-                    Debug.Log("Message: Default look at object called");
                     if (!b_oneTimeCursorCall)
                     {
                         //ChangeCursorMode("Normal", new Vector2(normalCusor.width / 2, normalCusor.height / 2));
@@ -167,14 +163,16 @@ public class RaycastHandler : MonoBehaviour {
                             ht[i].b_activated = true;
                         }
 
+						if(ht[i].m_horrorType == HorrorTrigger.horrorTypes.PushObject)
+						{
+							ht[i].PushObject();
+						}
+
                     }
 
                     ht[i].b_activated = true;
                     Debug.Log(ht[i].gameObject.name + " : " + ht[i].b_activated);
                 }
-
-
-
             }
 
 			//Determine what happens if the player clicks
@@ -203,26 +201,21 @@ public class RaycastHandler : MonoBehaviour {
 					taskObjective = GetComponentInParent<TaskManager>();
                     
 					conntrolsAssist.ItemLookAtMessage(hit.transform.gameObject.name);
-                    
-					taskObjective.SetCompletedTask(hit.transform.gameObject.GetComponent<TaskObjective>().TaskCompletedID);
-                    
-					character = GetComponentInParent<CharacterScript>();
-                    
-					character.inventoryItems.Add(hit.transform.gameObject);
-                    
+                                        
 					hit.transform.gameObject.SetActive(false);
+
+                    Inventory inv = new Inventory();
+                    inv.AddItem(hit.transform.gameObject, hit.transform.gameObject.name);
+
                 }
 
-				if(hit.transform.gameObject.tag == "Door")
-				{
-					player.InteractWithDoor(hit.transform.gameObject.GetComponent<DoorScript>());
-				}
-
-
+                if(hit.transform.gameObject.tag == "TaskObjective")
+                {
+                    hit.transform.gameObject.GetComponent<TaskCompleter>().CheckInventory();
+                }
 			}
         }
 	}
-
 
 	/// <summary>
 	/// Changes the cursor mode.
@@ -257,9 +250,9 @@ public class RaycastHandler : MonoBehaviour {
     /// Woohoo! Shorter code! Instead of using an if after if for each object. In this function, 
     /// we will react to each object that has a tag of "AnimatedObject" and we also grab the current
     /// animator attatched to the object we are looking at. We set up a temporary bool that handles the on and off state. 
-    /// 
     /// </summary>
     /// <param name="objectBoolsName"></param>
+    /// <returns>The object bool name</returns>
     /// <param name="objectAnimator"></param>
     void InteractWithAnimatedObject(string objectBoolsName, Animator objectAnimator)
     {
@@ -277,6 +270,4 @@ public class RaycastHandler : MonoBehaviour {
                 objectAnimator.SetBool(objectBoolsName, objectBoolValue);
             }
     }
-
-
 }

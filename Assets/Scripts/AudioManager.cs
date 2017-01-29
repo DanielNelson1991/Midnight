@@ -5,7 +5,7 @@ public class AudioManager : MonoBehaviour {
 
 	public AudioMixerGroup audioMixerGroup;
 	public AudioClip distantThunder;
-	public Light moonLight;
+	public AudioClip owlSound;
 
 	/*
 	 * 
@@ -20,7 +20,7 @@ public class AudioManager : MonoBehaviour {
 
 	/*
 	 * 
-	 * Summary: PlayBackgroundAudio() is called to play the background noises. In this case, the thunder.
+	 * Summary: Background Audio of the scene
 	 * 
 	 * Parameters: None
 	 * 
@@ -30,12 +30,17 @@ public class AudioManager : MonoBehaviour {
         Debug.Log("Message from " + this.GetType().Name + " Lightning Function called");
 
 		// 30% change of playing thunder
-		if(Random.value <= 0.3)
+		if(Random.value <= 3)
 		{
 			//moonLight.enabled = true;
 			GetComponent<AudioSource>().outputAudioMixerGroup = audioMixerGroup;
 			GetComponent<AudioSource>().PlayOneShot(distantThunder);
-		}  
+		} else if (Random.value >= 3 && Random.value <= 6)
+		{
+			GetComponent<AudioSource>().outputAudioMixerGroup = audioMixerGroup;
+			GetComponent<AudioSource>().PlayOneShot(owlSound);
+		}
+
 
 	}
 }

@@ -1,0 +1,345 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"test",
+				"TestResultState.Cancelled"
+			],
+			[
+				"Inter",
+				"InteractionManager"
+			],
+			[
+				"Interact",
+				"InteractiveObject"
+			],
+			[
+				"intera",
+				"interactiveCursor"
+			],
+			[
+				"game",
+				"GameObject(name)"
+			],
+			[
+				"prod",
+				"productID"
+			],
+			[
+				"product",
+				"product"
+			],
+			[
+				"mar",
+				"margin-right"
+			],
+			[
+				"cat",
+				"catID"
+			],
+			[
+				"get",
+				"_GET"
+			],
+			[
+				"gloa",
+				"GLOBALS"
+			],
+			[
+				"pro",
+				"productID"
+			],
+			[
+				"backgrou",
+				"background-color"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "/C/Users/Daniel/AppData/Local/Temp/fz3temp-2/proddetail.php",
+			"settings":
+			{
+				"buffer_size": 9148,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"last_filter": "packagecontrol",
+		"selected_items":
+		[
+			[
+				"packagecontrol",
+				"Package Control: Install Package"
+			],
+			[
+				"open",
+				"PackageResourceViewer: Open Resource"
+			],
+			[
+				"Package Control",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: ",
+				"Package Control: Install Package"
+			],
+			[
+				"",
+				"Code Folding: Unfold All"
+			]
+		],
+		"width": 552.0
+	},
+	"console":
+	{
+		"height": 382.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = 'df21e130d211cfc94d9b0905775a7c0f' + '1e3d39e33b79698005270310898eea76'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/A/MyGames/GitHub/Midnight/Assets/Scripts"
+	],
+	"file_history":
+	[
+		"/A/MyGames/GitHub/Midnight/Assets/Scripts/RaycastHandler.cs",
+		"/A/MyGames/GitHub/Midnight/Assets/Scripts/Disabler.cs",
+		"/C/Users/Daniel/AppData/Roaming/Sublime Text 3/Packages/User/OmniSharpSublime.sublime-settings",
+		"/A/MyGames/GitHub/Midnight/Assets/Scripts/TaskCompleter.cs",
+		"/A/MyGames/GitHub/Midnight/Assets/Scripts/LoadingSceneManager.cs",
+		"/A/MyGames/GitHub/Midnight/Assets/ErrorHandler.cs",
+		"/A/MyGames/GitHub/Midnight/Assets/Scripts/CharacterScript.cs",
+		"/C/Users/Daniel/AppData/Roaming/Sublime Text 3/Packages/Theme - Default/Default.sublime-theme",
+		"/C/Users/Daniel/AppData/Roaming/Sublime Text 3/Packages/User/PHP.sublime-settings",
+		"/C/Users/Daniel/AppData/Roaming/Sublime Text 3/Packages/User/XML.sublime-settings",
+		"/C/Users/Daniel/AppData/Roaming/Sublime Text 3/Packages/User/YAML.sublime-settings",
+		"/C/Users/Daniel/AppData/Roaming/Sublime Text 3/Packages/User/JSON.sublime-settings",
+		"/C/Users/Daniel/AppData/Roaming/Sublime Text 3/Packages/ApplySyntax/ApplySyntax.sublime-settings",
+		"/C/Users/Daniel/AppData/Roaming/Sublime Text 3/Packages/User/ApplySyntax.sublime-settings",
+		"/C/Users/Daniel/AppData/Roaming/Sublime Text 3/Packages/User/Package Control.sublime-settings",
+		"/A/MyGames/GitHub/Midnight/MidnightSublime.sublime-project",
+		"/A/MyGames/GitHub/Midnight/Assets/Scripts/LoadingScreen.cs",
+		"/A/MyGames/GitHub/Midnight/Sublime Project Folder.sublime-project",
+		"/C/Users/Daniel/Downloads/Package Control.sublime-package",
+		"/C/Users/Daniel/AppData/Local/Temp/fz3temp-2/functions.php",
+		"/C/Users/Daniel/AppData/Local/Temp/fz3temp-2/custom.css",
+		"/C/Users/Daniel/AppData/Local/Temp/fz3temp-2/header.php",
+		"/C/Users/Daniel/AppData/Local/Temp/fz3temp-2/index.php",
+		"/C/Users/Daniel/AppData/Local/Temp/fz3temp-2/product.php",
+		"/C/Users/Daniel/AppData/Local/Temp/fz3temp-2/do_shortcode.php",
+		"/C/Users/Daniel/AppData/Local/Temp/fz3temp-2/categories-load.php",
+		"/C/Users/Daniel/AppData/Local/Temp/fz3temp-2/cart.php",
+		"/C/Users/Daniel/AppData/Local/Temp/fz3temp-2/product 2.php",
+		"/C/Users/Daniel/AppData/Local/Temp/fz3temp-2/inccart.php",
+		"/C/Users/Daniel/AppData/Local/Temp/fz3temp-2/incproddetail.php",
+		"/C/Users/Daniel/AppData/Local/Temp/fz3temp-2/proddetail.php",
+		"/C/Users/Daniel/AppData/Local/Temp/fz3temp-2/products.php",
+		"/C/Users/Daniel/AppData/Local/Temp/fz3temp-2/single.php",
+		"/C/Users/Daniel/AppData/Local/Temp/fz3temp-2/page.php",
+		"/C/Users/Daniel/AppData/Local/Temp/fz3temp-2/content.php",
+		"/C/Users/Daniel/AppData/Local/Temp/fz3temp-2/content-page.php",
+		"/C/Users/Daniel/AppData/Local/Temp/fz3temp-2/customizer.php"
+	],
+	"find":
+	{
+		"height": 34.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"monok",
+			"monakai",
+			"wrapper",
+			"ajaxaddcart",
+			"detailbuybutton",
+			"buybutton detailbuybutton",
+			"buybutton",
+			"buybutton detailbuybutton",
+			"imageorbutton",
+			"pddcheckoutbutton",
+			"add",
+			"ajaxaddcart(0)",
+			"basket",
+			"add",
+			"pdddescription",
+			"wrapper",
+			"$longdesc",
+			"wrapper",
+			"main-product-page-wrapper",
+			"wrapper",
+			"class=\"detailimage\"",
+			"detailimage",
+			"prodimage0",
+			"detailimage"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "/C/Users/Daniel/AppData/Local/Temp/fz3temp-2/proddetail.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 9148,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"apply_syntax_touched": true,
+							"syntax": "Packages/PHP/PHP.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 23.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.variable_get":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "MidnightSublime.sublime-project",
+	"replace":
+	{
+		"height": 42.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 302.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

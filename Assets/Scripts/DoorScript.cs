@@ -21,13 +21,10 @@ public class DoorScript : MonoBehaviour
 
     public float HingeMaxLimit = 100;	// Make limit the door is allowed to swing
 
-    CharacterScript character;
-
     void Awake()
     {
         // Grab the audio source from the door object
         audioSource = GetComponent<AudioSource>();
-        character = GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterScript>();
     }
 
     /*
@@ -53,14 +50,8 @@ public class DoorScript : MonoBehaviour
 	 * Parameters: None
 	 * 
 	 * */
-    public void CheckDoor()
+    public void UnlockDoor()
     {
-        //// If the door is locked
-        if (isDoorLocked)
-        {
-            // If the player contains the key for this door
-            if (character.inventoryItems.Contains(keyForThisDoor))
-            {
                 // Play door unlocked audio
                 audioSource.PlayOneShot(doorUnlocked);
                 // Remove the key from the inventory
@@ -80,10 +71,12 @@ public class DoorScript : MonoBehaviour
                 limits.max = 100;
                 hinge.limits = limits;
                 hinge.useLimits = true;
-            }
-            else {
-                audioSource.PlayOneShot(doorLocked);
-            }
+                gameObject.tag = "Untagged";
+                Destroy(GetComponent<DoorScript>());
         }
+
+    public void DoorStillLocked()
+    {
+        audioSource.PlayOneShot(doorLocked);
     }
 }

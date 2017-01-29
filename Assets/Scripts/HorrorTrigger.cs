@@ -69,7 +69,7 @@ public class HorrorTrigger : MonoBehaviour {
 	FirstPersonController firstPersonController;	// Store the first person controller in this variable
 
 	// Arrays
-	public GameObject[] pushedObjects;				// Array to hold the game objects that will be pushed
+	public GameObject pushedObjects;				// Array to hold the game objects that will be pushed
 	 
 
 	Quaternion tmpa; 
@@ -142,7 +142,7 @@ public class HorrorTrigger : MonoBehaviour {
         if (transform.localEulerAngles.y > m_maxRotation)
         {
             beginDoorRotation = false;
-            audioSource.Stop();
+//            audioSource.Stop();
         }
 
     }
@@ -203,15 +203,6 @@ public class HorrorTrigger : MonoBehaviour {
         //Destroy(this.gameObject.GetComponent<AudioClip>());
 	}
 
-	/// <summary>
-	/// This function pushes an object off the shelf.
-	/// </summary>
-	/// <param name="seconds">Seconds.</param>
-	public void PushObject(float seconds)
-	{
-		
-	}
-
 
 	/*
 	 * 
@@ -237,6 +228,10 @@ public class HorrorTrigger : MonoBehaviour {
 
         }
 
+	}
+
+	public void PushObject() {
+		this.gameObject.GetComponent<Rigidbody>().AddForce(Vector3.forward * 5);
 	}
 
 

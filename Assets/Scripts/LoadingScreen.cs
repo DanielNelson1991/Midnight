@@ -27,43 +27,43 @@ public class LoadingScreen : MonoBehaviour {
     private float progress;
 #pragma warning restore 0414
     private string newSceneName;
+
+    AsyncOperation async;
     
     // Use this for initialization
     void Start () {
         StartCoroutine(LoadLevelAsync());
+        async.allowSceneActivation = false;
 	}
-
-    private string lastLoadProgress = null;
 
     private IEnumerator LoadLevelAsync()
     {
-        AsyncOperation async = SceneManager.LoadSceneAsync(LoadScene.ChangeSceneName(LoadScene.loadSceneName));
-        async.allowSceneActivation = false;
-        while(!async.isDone)
+        async = SceneManager.LoadSceneAsync("demo_night");
+
+        while (!async.isDone)
         {
-            if(async.progress < 0.9f)
-            {
-                loadProgress = "Loading..." + (async.progress * 100f).ToString("F0") + "%";
-            }
-            else
-            {
-                if(Input.anyKeyDown)
-                {
-                    async.allowSceneActivation = true;
-                }
-                loadProgress = "Press [ENTER] to begin.";
-            }
-            if(lastLoadProgress != loadProgress)
-            {
-                lastLoadProgress = loadProgress;
-                Debug.Log(loadProgress);
-            }
-            progress = async.progress * 100;
+
             yield return null;
 
         }
-        loadProgress = "Load Complete";
+
         Debug.Log(loadProgress);
+    }
+
+    void Update()
+    {
+        Debug.Log(async.progress);
+        loadProgress = "Loading..." + (async.progress * 90f).ToString("F0") + "%";
+
+        if(async.isDone)
+        {
+            if(Input.GetKeyDown(KeyCode.KeypadEnter))
+            {
+                async.allowSceneActivation = true;
+            }
+            
+            loadProgress = "Press Enter to Begin...";
+        }
     }
 
 

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-
+using UnityEngine.UI;
 public class TaskManager : MonoBehaviour {
     
     [System.Serializable]
@@ -12,6 +12,8 @@ public class TaskManager : MonoBehaviour {
         public bool taskCompleted;
     }
 
+    public Sprite _background;
+    
     public List<Tasks> taskList = new List<Tasks>();
 
     public void SetCompletedTask(int taskID)

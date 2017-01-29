@@ -17,7 +17,8 @@ namespace TalkbackHelper {
 
     public class ControlsAssist
     {
-
+        [Tooltip("Chapter Is playinh?")]
+        public bool chapterPlaying;
         public bool itemMessageDisplayed = false;
 
         public int ChapterNumber = 0;
@@ -26,16 +27,8 @@ namespace TalkbackHelper {
         // optional put in float delay...this will need to have a for loop and a yield return new wait for seconds
         public IEnumerator GameCharacterScript(int ChapterNumber)
         {
-
+            chapterPlaying = true;
             Debug.Log("Character game script called");
-
-            Text canvas_textObject;
-
-            canvas_textObject = GameObject.Find("_talkbackHelper").GetComponent<Text>();
-
-            canvas_textObject.enabled = true;
-
-            canvas_textObject.canvasRenderer.SetAlpha(1);
 
             switch (ChapterNumber)
             {
@@ -52,42 +45,56 @@ namespace TalkbackHelper {
 
             for(int i = 0; i < ChapterDialog.Count; i++)
             {
-                canvas_textObject.text = ChapterDialog[i].ToString();
+                //canvas_textObject.text = ChapterDialog[i].ToString();
                 Debug.Log("Character Dialog Call: "+ChapterDialog[i].ToString()+"");
-                canvas_textObject.CrossFadeAlpha(0, 4.5f, false);
+                //canvas_textObject.CrossFadeAlpha(0, 4.5f, false);
                 yield return new WaitForSeconds(6f);
-                canvas_textObject.CrossFadeAlpha(1, 0, false);
+                //canvas_textObject.CrossFadeAlpha(1, 0, false);
             }
 
-            canvas_textObject.text = "";
-            canvas_textObject.canvasRenderer.SetAlpha(0);
+            //canvas_textObject.text = "";
+            //canvas_textObject.canvasRenderer.SetAlpha(0);
             ChapterDialog.Clear();
+            chapterPlaying = false;
         }
 
         
         public void ObjectiveReminder()
         {
+            // If chapter not playing, continue else return control back
+            if (chapterPlaying)
+            {
+                return;
+            }
+            else
+            {
+                TaskManager taskManager = GameObject.FindGameObjectWithTag("Player").GetComponent<TaskManager>();
 
-            TaskManager taskManager = GameObject.FindGameObjectWithTag("Player").GetComponent<TaskManager>();
+                Text canvas_textObject;
+                Image _background;
 
-            Text canvas_textObject;
+                canvas_textObject = GameObject.Find("_talkbackHelper").GetComponent<Text>();
+                _background = GameObject.Find("_backgroundSprite").GetComponent<Image>();
 
-            canvas_textObject = GameObject.Find("_talkbackHelper").GetComponent<Text>();
 
-            canvas_textObject.enabled = true;
+                canvas_textObject.enabled = true;
+                _background.enabled = true;
 
-            canvas_textObject.canvasRenderer.SetAlpha(1);
+                canvas_textObject.canvasRenderer.SetAlpha(1);
+                _background.canvasRenderer.SetAlpha(1);
 
-            canvas_textObject.text = taskManager.taskList[0].taskDesc.ToString();
+                canvas_textObject.text = taskManager.taskList[0].taskDesc.ToString();
 
-            canvas_textObject.CrossFadeAlpha(0, 2.5f, false);
+                canvas_textObject.CrossFadeAlpha(0, 2.5f, false);
+                _background.CrossFadeAlpha(0, 2.5f, false);
+            }
         }
 
         public void ItemLookAtMessage(string itemName)
         {
             if(itemMessageDisplayed == false)
             {
-                string[] optionalWords = new string[] { "What's this? It looks to be the ",
+                /*string[] optionalWords = new string[] { "What's this? It looks to be the ",
                                                         "This must be the "};
 
                 Text canvas_textObject;
@@ -100,7 +107,7 @@ namespace TalkbackHelper {
 
                 canvas_textObject.text = optionalWords[Random.Range(0, optionalWords.Length)] + "<color=red>" + itemName + "</color>";
 
-                canvas_textObject.CrossFadeAlpha(0, 2.5f, false);
+                canvas_textObject.CrossFadeAlpha(0, 2.5f, false);*/
 
                 
             }
@@ -123,19 +130,26 @@ namespace TalkbackHelper {
             canvas_textObject.enabled = true;
 
             canvas_textObject.canvasRenderer.SetAlpha(1);
-
-            for(int i = 0; i < character.inventoryItems.Count; i++)
+            if (character.inventoryItems.Count <= 0)
             {
-                temp = temp + character.inventoryItems[i].name + ", ";
-
-                if(i >= character.inventoryItems.Count)
+                canvas_textObject.text = "Hmm, I don't have any items yet.";
+            }
+            else
+            {
+                for (int i = 0; i < character.inventoryItems.Count; i++)
                 {
-                    temp = temp + character.inventoryItems[i].name + ".";
+                    temp = temp + character.inventoryItems[i].name + ", ";
+
+                    if (i >= character.inventoryItems.Count)
+                    {
+                        temp = temp + character.inventoryItems[i].name + ".";
+                    }
+
                 }
-                
+                canvas_textObject.text = optionalWords[Random.Range(0, optionalWords.Length)] + "<color=red>" + temp + "</color>";
             }
 
-            canvas_textObject.text = optionalWords[Random.Range(0, optionalWords.Length)] + "<color=red>" + temp + "</color>";
+           
 
             canvas_textObject.CrossFadeAlpha(0, 2.5f, false);
         }
