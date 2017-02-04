@@ -1,11 +1,10 @@
 ﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine.UI;
 using System;
 using System.IO;
 
 public class ErrorHandler : MonoBehaviour {
+
+    private static string _ErrorLoggerName = "Midnight_Error_Log.txt";
 
     void Start()
     {
@@ -26,9 +25,9 @@ public class ErrorHandler : MonoBehaviour {
             {
                 Directory.CreateDirectory(Application.dataPath + @"\Midnight Error Logs");
 
-                System.IO.File.WriteAllText(Application.dataPath + @"\Midnight Error Logs\errpr_logs.txt", "Midnight Error Logs");
-                System.IO.File.AppendAllText(Application.dataPath + @"\Midnight Error Logs\errpr_logs.txt", "\r\n");
-                System.IO.File.AppendAllText(Application.dataPath + @"\Midnight Error Logs\errpr_logs.txt", "\r\n[" + System.DateTime.Now + "] " + type.ToString() + " Occured: " + logString.ToString() + Environment.NewLine);
+                System.IO.File.WriteAllText(Application.dataPath + @"\Midnight Error Logs\"+_ErrorLoggerName, "Midnight Error Logs");
+                System.IO.File.AppendAllText(Application.dataPath + @"\Midnight Error Logs\"+_ErrorLoggerName, "\r\n");
+                System.IO.File.AppendAllText(Application.dataPath + @"\Midnight Error Logs\"+_ErrorLoggerName, "\r\n[" + System.DateTime.Now + "] " + type.ToString() + " Occured: " + logString.ToString() + Environment.NewLine);
             }
             catch (Exception e)
             {
@@ -40,7 +39,7 @@ public class ErrorHandler : MonoBehaviour {
         {
             if(type == LogType.Warning || type == LogType.Error)
             {
-                System.IO.File.AppendAllText(Application.dataPath + @"\Midnight Error Logs\errpr_logs.txt", "\r\n[" + System.DateTime.Now + "] " + type.ToString() + " Occured: " + logString.ToString() + Environment.NewLine);
+                System.IO.File.AppendAllText(Application.dataPath + @"\Midnight Error Logs\"+_ErrorLoggerName, "\r\n[" + System.DateTime.Now + "] " + type.ToString() + " Occured: " + logString.ToString() + Environment.NewLine);
             }
 
 

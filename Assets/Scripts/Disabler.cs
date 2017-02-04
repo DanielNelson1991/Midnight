@@ -1,65 +1,49 @@
 ﻿/*
-    This script displays a message to the user if a feature has not
-    yet been added to the game. 
+    Disabler Script v.0.1
+    ---------------------
+
+    Description
+    -----------
+    This script is used to disable in-game features that are not yet ready
+    for the game release. 
+
+    Bugs
+    ----
+    - None as of yet
+
+    Changelog
+    ---------
+    v0.01   - Removed previous code
+            - Added basic message to display to end user
+
 */
 using UnityEngine;
-using System.Collections;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
-using System.IO;
-using System;
 
 public class Disabler : MonoBehaviour {
 
-    public bool         _isDisabled;
-    public GameObject   _disabler;
-    public Text         _textMessage;
-
-    // Update is called once per frame
-    void Update () {
-        if(Input.GetKeyDown(KeyCode.Q))
+    public bool     _Disabled;
+    public Image    _UI;
+    public Text     _DisabledMessage;
+    
+    void Update()
+    {
+        if(_Disabled)
         {
-            Debug.LogWarning("WARNING");
-        }
-
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            Debug.LogError("ERROR ");
-        }
-
-
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            Debug.Log("NORMAL ");
+            DisabledUI();
         }
     }
 
-    public void OnObjectPressed()
+    /// <summary>
+    /// The function to tell the user this feature is disabled
+    /// </summary>
+    public void DisabledUI()
     {
-        _disabler.gameObject.SetActive(true);
-
-        string temp = EventSystem.current.currentSelectedGameObject.gameObject.name;
-
-        switch(temp)
-        {
-                case "FB":
-                    _textMessage.text = "Currently, Facebook has not yet been registered to the game. Please stay tuned for more updates";
-                break;
-
-
-                case "Twitter":
-                    _textMessage.text = "No twitter support yet.";
-                break;
-        }
+        _DisabledMessage.text = "Sorry, but this feature is not yet ready. Check back soon for more updates!";
     }
 
-    public void ExitDisabler(string test)
+    public void ExitDisabler()
     {
-        _disabler.gameObject.SetActive(false);
-    }
-
-    public void dome()
-    {
-
+        _UI.gameObject.SetActive(false);
     }
 }
